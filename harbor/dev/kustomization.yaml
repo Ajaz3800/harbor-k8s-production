@@ -3,8 +3,7 @@ resources:
   - harbor-dev-pv.yaml
   - harbor-dev-pvc.yaml
   - secret.yaml
-  - values.yaml
-  
+
 helmCharts:
   - name: harbor
     repo: https://helm.goharbor.io
