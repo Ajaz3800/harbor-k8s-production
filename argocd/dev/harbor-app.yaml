@@ -10,6 +10,9 @@ spec:
     repoURL: https://github.com/Ajaz3800/harbor-k8s-production.git
     targetRevision: HEAD
     path: harbor/dev
+    helm:
+      valueFiles:
+        - harbor/dev/values.yaml
 
   destination:
     server: https://kubernetes.default.svc
