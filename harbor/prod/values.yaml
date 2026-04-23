@@ -1,0 +1,50 @@
+existingSecretAdminPassword: harbor-admin-secret
+
+expose:
+  type: ingress
+
+  ingress:
+    className: nginx   # important
+
+    hosts:
+      core: harbor-prod.example.com
+
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    
+    tls:
+      enabled: true
+      secretName: harbor-tls-prod
+
+persistence:
+  enabled: true
+
+  # Use S3 instead of PVC for registry
+  imageChartStorage:
+    type: s3
+
+    s3:
+      region: us-east-1
+      bucket: harbor-registry-prod
+      accesskey: YOUR_ACCESS_KEY
+      secretkey: YOUR_SECRET_KEY
+      regionendpoint: https://s3.amazonaws.com
+
+      # Optional but recommended
+      encrypt: true
+      secure: true
+
+  # Keep small PVCs for internal services
+  persistentVolumeClaim:
+    database:
+      storageClass: gp3
+      size: 10Gi
+
+    redis:
+      storageClass: gp3
+      size: 5Gi
+
+    jobservice:
+      storageClass: gp3
+      size: 1Gi
