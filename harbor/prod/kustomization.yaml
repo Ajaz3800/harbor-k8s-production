@@ -1,0 +1,10 @@
+resources:
+  - ../base
+  - sealed-secret.yaml
+
+helmCharts:
+  - name: harbor
+    repo: https://helm.goharbor.io
+    releaseName: harbor
+    namespace: harbor-prod
+    valuesFile: values.yaml
