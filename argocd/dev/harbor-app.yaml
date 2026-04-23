@@ -11,7 +11,7 @@ spec:
     targetRevision: main
     path: harbor/dev
     helm:
-      valuesFiles:
+      valueFiles:
         - values.yaml
 
   destination:
