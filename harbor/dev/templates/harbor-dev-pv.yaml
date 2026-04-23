@@ -11,3 +11,52 @@ spec:
   hostPath:
     path: /data/harbor-dev
     type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-db-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes: ["ReadWriteOnce"]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual-dev # Matches your existing SC
+  hostPath:
+    path: /mnt/data/harbor/db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-redis-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: manual-dev
+  hostPath:
+    path: /mnt/data/harbor/redis
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-trivy-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: manual-dev
+  hostPath:
+    path: /mnt/data/harbor/trivy
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: harbor-job-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: manual-dev
+  hostPath:
+    path: /mnt/data/harbor/jobservice
