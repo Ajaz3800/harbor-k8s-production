@@ -24,19 +24,27 @@ This project uses:
 
 ---
 
-## 📂 Repository Structure
+## 🏗️ Architecture Diagram
 
-```
-harbor-k8s-production
-├── argocd
-│   ├── dev
-│   └── prod
-├── harbor
-│   ├── dev
-│   └── prod
-├── assets
-└── README.md
-```
+<p align="center">
+  <img src="assets/demo-1.png" alt="Harbor GitOps Architecture" width="900"/>
+</p>
+
+---
+
+## ⚙️ ArgoCD GitOps in Action
+<p align="center">
+  <img src="assets/argocd.gif" width="900"/>
+</p>
+
+---
+
+## 📦 Harbor Registry Demo
+<p align="center">
+  <img src="assets/harbor.gif" width="900"/>
+</p>
+
+---
 
 ### 🔹 Key Components
 
@@ -272,11 +280,6 @@ harbor 1.14.0
 
 ---
 
-## 📸 Screenshots
-
-*Add screenshots from `_assets/demo.png` here*
-
----
 
 ## 🔒 Prod TLS Setup (cert-manager)
 
