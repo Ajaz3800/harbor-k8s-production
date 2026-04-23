@@ -10,8 +10,7 @@ spec:
     repoURL: https://helm.goharbor.io
     chart: harbor
     targetRevision: "*"
-
-  helm:
+    helm:
       valueFiles:
         - harbor/dev/values.yaml
 
