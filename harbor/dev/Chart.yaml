@@ -4,3 +4,7 @@ description: Custom Harbor Helm Chart (GitOps)
 type: application
 version: 1.0.0
 appVersion: "2.10.0"
+dependencies:
+  - name: harbor
+    version: 1.14.0 
+    repository: https://helm.goharbor.io
