@@ -9,7 +9,7 @@ spec:
     - ReadWriteOnce
   storageClassName: manual-dev
   hostPath:
-    path: /data/harbor-dev
+    path: /home/vagrant/data/harbor-dev
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -23,7 +23,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual-dev # Matches your existing SC
   hostPath:
-    path: /data/harbor-dev/db
+    path: /home/vagrant/data/harbor-dev/db
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -36,7 +36,7 @@ spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: manual-dev
   hostPath:
-    path: /data/harbor-dev/redis
+    path: /home/vagrant/data/harbor-dev/redis
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -49,7 +49,7 @@ spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: manual-dev
   hostPath:
-    path: /data/harbor-dev/trivy
+    path: /home/vagrant/data/harbor-dev/trivy
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -62,5 +62,5 @@ spec:
   accessModes: ["ReadWriteOnce"]
   storageClassName: manual-dev
   hostPath:
-    path: /data/harbor-dev/jobservice
+    path: /home/vagrant/data/harbor-dev/jobservice
     type: DirectoryOrCreate
