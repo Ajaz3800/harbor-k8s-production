@@ -1,59 +1,103 @@
-# harbor-k8s-production
-Harbor Deploy on k8s with HA for Production
-# 🚀 Harbor GitOps Deployment (Dev + Prod) with ArgoCD
+# 🚀 Harbor GitOps on Kubernetes using ArgoCD (Dev + Prod)
 
-This repository demonstrates a **production-style GitOps setup** for deploying Harbor on Kubernetes using:
+This repository demonstrates a **production-grade GitOps setup for deploying Harbor container registry** on Kubernetes using **ArgoCD + Helm + Sealed Secrets**.
 
-* ArgoCD (GitOps)
-* Helm (Harbor deployment)
-* Kustomize (environment separation)
-* Sealed Secrets (secure secret handling)
-* AWS S3 (production storage backend)
+It is designed as a **portfolio DevOps/DevSecOps project** showcasing:
 
----
-
-## 🧰 Tech Stack
-
-* Kubernetes
-* ArgoCD
-* Helm
-* Kustomize
-* Bitnami Sealed Secrets
-* AWS S3
+* GitOps workflows
+* Multi-environment deployments (dev & prod)
+* Secure secret management
+* Kubernetes storage provisioning
+* Helm-based application packaging
 
 ---
 
-## 📁 Project Structure
+## 📌 Architecture Overview
+
+This project uses:
+
+* **ArgoCD** → GitOps continuous delivery engine
+* **Kubernetes** → Container orchestration
+* **Helm** → Package manager for Harbor deployment
+* **Bitnami Sealed Secrets** → Secure secret management
+* **Harbor** → Private container registry
+
+---
+
+## 📂 Repository Structure
 
 ```
-harbor-k8s-production/
-├── argocd/
-│   ├── dev/
-│   │   └── harbor-app.yaml
-│   └── prod/
-│       └── harbor-app.yaml
-│
-├── harbor/
-│   ├── dev/
-│   │   ├── kustomization.yaml
-│   │   ├── namespace.yaml
-│   │   ├── values.yaml
-│   │   ├── harbor-dev-pv.yaml
-│   │   └── harbor-dev-pvc.yaml
-│   │
-│   └── prod/
-│       ├── kustomization.yaml
-│       ├── namespace.yaml
-│       └── values.yaml
-│
+harbor-k8s-production
+├── argocd
+│   ├── dev
+│   └── prod
+├── harbor
+│   ├── dev
+│   └── prod
+├── assets
 └── README.md
 ```
 
+### 🔹 Key Components
+
+#### 1. ArgoCD Applications
+
+* `argocd/dev/harbor-app.yaml` → Dev environment deployment
+* `argocd/prod/harbor-app.yaml` → Production deployment
+
+#### 2. Harbor Helm Charts
+
+* `harbor/dev` → Dev configuration (NodePort + local storage)
+* `harbor/prod` → Production configuration (Ingress + S3 storage)
+
+#### 3. Secrets Management
+
+* Uses **Bitnami Sealed Secrets**
+* Admin password stored securely as:
+
+  * `harbor-admin-secret`
+
+#### 4. Storage Strategy
+
+* Dev → HostPath / PVC (manual storage class)
+* Prod → AWS S3 for registry + managed PVC for internal services
+
 ---
 
-## 🏗️ Architecture Diagram
+## 🧪 Environments
 
-![Harbor GitOps Architecture](assets/demo.png)
+## 🟢 Development (`harbor-dev`)
+
+Features:
+
+* NodePort exposure
+* Self-signed TLS
+* Local hostPath storage
+* Manual storage class (`manual-dev`)
+
+Access:
+
+```
+http://<node-ip>:30080
+https://<node-ip>:30443
+```
+
+---
+
+## 🔴 Production (`harbor-prod`)
+
+Features:
+
+* Ingress-based access
+* TLS via cert-manager
+* AWS S3 storage backend
+* Secure secrets via SealedSecrets
+
+Domain:
+
+```
+https://harbor-prod.example.com
+```
 
 ---
 
@@ -135,62 +179,102 @@ Use Kubernetes Secret + SealedSecret ✅
 
 ---
 
-## 🚀 Deployment Steps
+## 🔐 Secrets Management
 
-### 1. Install ArgoCD
+This project uses **Bitnami Sealed Secrets** to encrypt sensitive data.
 
+Example:
+
+```yaml
+kind: SealedSecret
+metadata:
+  name: harbor-admin-secret
 ```
-kubectl create namespace argocd
 
-kubectl apply -n argocd \
-  -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-```
+✔ Secrets are safe to store in Git
+✔ Only cluster controller can decrypt
 
 ---
 
-### 2. Apply Applications
+## ⚙️ Deployment Flow (GitOps)
 
-#### Dev
+1. Developer pushes code to GitHub
+2. ArgoCD detects changes
+3. Helm chart is rendered
+4. Kubernetes applies resources
+5. Harbor is automatically updated
 
+---
+
+## 🚀 How to Deploy
+
+### 1. Install ArgoCD
+
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
+
+### 2. Apply ArgoCD Applications
+
+```bash
 kubectl apply -f argocd/dev/harbor-app.yaml
-```
-
-#### Prod
-
-```
 kubectl apply -f argocd/prod/harbor-app.yaml
 ```
 
 ---
 
-### 3. Access ArgoCD UI
+## 📦 Helm Dependency
+
+Harbor is installed via official Helm chart:
 
 ```
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+https://helm.goharbor.io
 ```
 
-Open:
+Version used:
 
 ```
-https://localhost:8080
+harbor 1.14.0
 ```
 
 ---
 
-## 🌐 Dev Access (Local)
+## 🔒 Security Highlights
 
-Update `/etc/hosts`:
+* Sealed Secrets for Git-safe credentials
+* TLS enabled in production
+* S3 encryption enabled (prod)
+* Namespace isolation (`harbor-dev`, `harbor-prod`)
 
-```
-127.0.0.1 harbor-dev.local
-```
+---
 
-Access:
+## 📊 DevOps Practices Demonstrated
 
-```
-http://harbor-dev.local
-```
+✔ GitOps (ArgoCD)
+✔ Infrastructure as Code (Helm + YAML)
+✔ Secure secret handling
+✔ Multi-environment strategy
+✔ Production-ready storage design
+✔ Kubernetes native deployment
+
+---
+
+## 🧠 Skills Showcased
+
+* Kubernetes (K8s)
+* ArgoCD GitOps
+* Helm Charts
+* Harbor Registry
+* AWS S3 integration
+* DevSecOps practices
+* Sealed Secrets
+
+---
+
+## 📸 Screenshots
+
+*Add screenshots from `_assets/demo.png` here*
 
 ---
 
@@ -257,16 +341,6 @@ kubectl get storageclass
 * Separate dev and prod configurations
 * Avoid overcomplicating base configs early
 * Keep repo private if possible
-
----
-
-## 🚀 Future Improvements
-
-* External Secrets Operator
-* AWS IAM Roles (IRSA)
-* Prometheus + Grafana monitoring
-* Harbor Trivy integration
-* CI/CD pipeline integration
 
 ---
 
