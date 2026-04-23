@@ -23,3 +23,11 @@ harbor:
     persistentVolumeClaim:
       registry:
         existingClaim: harbor-dev-pvc
+      database:
+        storageClass: "manual-dev"
+      redis:
+        storageClass: "manual-dev"
+      trivy:
+        storageClass: "manual-dev"
+      jobservice:
+        storageClass: "manual-dev"
