@@ -1,0 +1,25 @@
+existingSecretAdminPassword: harbor-admin-secret
+
+expose:
+  type: ingress
+
+  ingress:
+    className: nginx   # important
+
+    hosts:
+      core: harbor-dev.local
+
+    # annotations:
+    #   kubernetes.io/ingress.class: nginx
+    #   cert-manager.io/cluster-issuer: letsencrypt-prod
+
+    # tls:
+    #   enabled: true
+    #   secretName: harbor-tls-dev
+
+persistence:
+  enabled: true
+
+  persistentVolumeClaim:
+    registry:
+      existingClaim: harbor-dev-pvc
