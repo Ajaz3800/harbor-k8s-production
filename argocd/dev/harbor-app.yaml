@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: harbor-dev
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Ajaz3800/harbor-k8s-production.git
+    targetRevision: HEAD
+    path: harbor/dev
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: harbor-dev
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
