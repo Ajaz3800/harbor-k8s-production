@@ -1,5 +1,0 @@
-resources:
-  - namespace.yaml
-  - harbor-dev-pv.yaml
-  - harbor-dev-pvc.yaml
-  - secret.yaml
