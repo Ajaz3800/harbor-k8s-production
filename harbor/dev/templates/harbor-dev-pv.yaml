@@ -25,6 +25,9 @@ spec:
   hostPath:
     path: /home/vagrant/data/harbor-dev/db
     type: DirectoryOrCreate
+  claimRef:
+    name: database-data-harbor-dev-database-0
+    namespace: harbor-dev
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -64,3 +67,6 @@ spec:
   hostPath:
     path: /home/vagrant/data/harbor-dev/jobservice
     type: DirectoryOrCreate
+  claimRef:
+    name: harbor-dev-jobservice
+    namespace: harbor-dev
