@@ -7,9 +7,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://helm.goharbor.io
-    chart: harbor
-    targetRevision: "*"
+    repoURL: https://github.com/Ajaz3800/harbor-k8s-production.git
+    targetRevision: main
+    path: harbor/dev
     helm:
       valueFiles:
         - harbor/dev/values.yaml
