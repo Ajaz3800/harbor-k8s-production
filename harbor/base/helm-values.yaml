@@ -1,0 +1,9 @@
+expose:
+  type: ingress
+
+externalURL: https://harbor.example.com
+
+harborAdminPassword: ""  # injected via secret
+
+persistence:
+  enabled: true
