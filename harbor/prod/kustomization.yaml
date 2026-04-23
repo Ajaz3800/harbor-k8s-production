@@ -1,6 +1,7 @@
 resources:
-  - ../base
-  - sealed-secret.yaml
+  - namespace.yaml
+  - secret.yaml
+  - values.yaml
 
 helmCharts:
   - name: harbor
