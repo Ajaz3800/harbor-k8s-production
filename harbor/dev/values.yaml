@@ -3,6 +3,13 @@ harbor:
 
   externalURL: http://192.168.56.11:30080
 
+  proxy:
+    config:
+      client_max_body_size: "0"       # Allows unlimited image layer sizes
+      proxy_read_timeout: "900s"      # Increased for slow VM networking
+      proxy_send_timeout: "900s"
+      proxy_connect_timeout: "900s"
+
   expose:
     type: nodePort
     tls:
