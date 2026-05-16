@@ -1,7 +1,7 @@
 harbor:
   existingSecretAdminPassword: harbor-admin-secret
 
-  externalURL: http://192.168.56.11:30080
+  externalURL: http://harbor.internal:30080
 
   proxy:
     config:
