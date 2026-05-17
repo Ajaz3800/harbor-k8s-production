@@ -1,7 +1,7 @@
 harbor:
   existingSecretAdminPassword: harbor-admin-secret
 
-  externalURL: http://harbor.internal:30080
+  externalURL: https://harbor.internal:30443
 
   proxy:
     config:
@@ -13,10 +13,13 @@ harbor:
   expose:
     type: nodePort
     tls:
-      enabled: false # Disables TLS/HTTPS
+      enabled: true
+      certSource: secret
+      secret:
+        secretName: harbor-tls-secret
     ingress:
       hosts:
-        core: harbor-dev.local # Keep as placeholder to satisfy Helm logic
+        core: harbor.internal
       controller: default
     nodePort:
       name: harbor
@@ -24,6 +27,9 @@ harbor:
         http:
           port: 80
           nodePort: 30080
+        https:
+          port: 443
+          nodePort: 30443 
 
   persistence:
     enabled: true
